@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL TECH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="images/logo.png" alt="logo" height="80px" width="80px"></div>
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li> 
+            <li><a href="preview.html">Preview</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="contact.html">Contact</a></li> 
+        </ul>
+
+        <div class="user-icon">
+            <a href="loginform.html"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <div class="banner">
+        <div class="banner-content">
+             <h2>Discover Our Preview Page</h2>
+            <p>Engage with practical assignments, interactive quizzes with instant feedback, and personalized comments to enhance your learning and track your progress.</p>
+            <a href="blog.html" class="read-more-btn">Read More</a> 
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Video Section -->
+        <div class="video-section">
+            <video controls>
+                <source src="images/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    
+        <!-- Quiz Sections -->
+        <div class="quiz-section">
+            <h2>Quiz 1: Introduction</h2>
+            <form>
+                <label for="question1">What is HTML?</label>
+                <input type="text" id="question1" name="question1">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+        <div class="quiz-section">
+            <h2>Quiz 2: Advanced Concepts</h2>
+            <form>
+                <label for="question2">Explain the CSS box model:</label>
+                <input type="text" id="question2" name="question2">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+        <!-- Assignment Sections -->
+        <div class="assignment-section">
+            <h2>Assignment 1: Create a Basic HTML Page</h2>
+            <p>Submit your completed project:</p>
+            <input type="file" id="assignment1" name="assignment1">
+            <button type="submit">Upload Assignment</button>
+        </div>
+    
+        <div class="assignment-section">
+            <h2>Assignment 2: CSS Styling Exercise</h2>
+            <p>Upload your styled HTML page:</p>
+            <input type="file" id="assignment2" name="assignment2">
+            <button type="submit">Upload Assignment</button>
+        </div>
+    
+        <!-- Course Progress Section -->
+        <div class="progress-section">
+            <h2>Course Progress</h2>
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%;"></div>
+            </div>
+        </div>
+    
+        <!-- Certificate Section -->
+        <div class="certificate-section">
+            <h2>Get Your Certificate</h2>
+            <button id="generate-certificate">Generate Certificate</button>
+            <div id="certificate" class="certificate-preview">
+                <div class="certificate-header">
+                    <h3>Certificate of Completion</h3>
+                </div>
+                <div class="certificate-body">
+                    <p>This is to certify that</p>
+                    <h2>[Your Name]</h2>
+                    <p>has successfully completed the course</p>
+                    <h3>[Course Name]</h3>
+                    <p>on [Date]</p>
+                </div>
+                <div class="certificate-footer">
+                    <p>Authorized by [Institution Name]</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Additional Content Section -->
+        <div class="resources-section">
+            <h2>Additional Resources</h2>
+            <ul>
+                <li><a href="#">HTML Cheat Sheet</a></li>
+                <li><a href="#">CSS Best Practices</a></li>
+                <li><a href="#">JavaScript Quick Guide</a></li>
+            </ul>
+        </div>
+    
+        <div class="feedback-section">
+            <h2>Course Feedback</h2>
+            <textarea id="feedback" placeholder="Share your thoughts about the course"></textarea>
+            <button type="submit">Submit Feedback</button>
+        </div>
+    </div>
+    
+
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section about">
+            <h2>About Us</h2>
+            <p>To empower learners of all ages by providing high-quality, flexible learning opportunities that inspire personal and professional growth. We believe in the power of education to change lives, and we're dedicated to making that power accessible to everyone.</p>
+          </div>
+          <div class="footer-section links">
+            <h2>Quick Links</h2>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Courses</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li><span>Address: </span>123 Street Name, City, State, Country</li>
+              <li><span>Email: </span><a href="mailto:info@elearning.com">info@elearning.com</a></li>
+              <li><span>Phone: </span><a href="tel:+1234567890">+123 456 7890</a></li>
+            </ul>
+          </div>
+          <div class="footer-section social">
+            <h2>Follow Us</h2>  
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+        </div>
+      </footer>
+
+
+    
+    <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('menu-icon').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+    </script>
+    
+</body>
+</html>
+
+document.getElementById('generate-certificate').addEventListener('click', function() {
+    let progressElement = document.getElementById('progress');
+    let currentProgress = parseInt(progressElement.style.width);
+    
+    if (currentProgress >= 100) {
+        document.getElementById('certificate').textContent = "Congratulations! You have completed the course. Your certificate is generated.";
+    } else {
+        document.getElementById('certificate').textContent = "Complete the course to generate your certificate.";
+    }
+});

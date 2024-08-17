@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL TECH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="images/logo.png" alt="logo" height="80px" width="80px"></div>
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="preview.html">Preview</a></li>  
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="contact.html">Contact</a></li> 
+        </ul>
+
+        <div class="user-icon">
+            <a href="loginform.html"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <div class="banner">
+        <div class="banner-content">
+          <h2>Discover Our Contact Page</h2>
+          <p>Get in touch with us to explore how we can help you achieve your goals. Whether you need information on courses, support, or have any questions, we're here to assist you.</p>
+         
+          <a href="blog.html" class="read-more-btn">Read More</a> 
+        </div>
+    </div>
+
+    <main>
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>If you have any questions or feedback, feel free to reach out to us using the form below.</p>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-envelope"></i> support@elearningplatform.com</li>
+                        <li><i class="fas fa-phone"></i> +123 456 7890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Learning St, Educate City, ED 45678</li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <h2>Contact Form</h2>
+                    <form action="#" method="post">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section about">
+            <h2>About Us</h2>
+            <p>To empower learners of all ages by providing high-quality, flexible learning opportunities that inspire personal and professional growth. We believe in the power of education to change lives, and we're dedicated to making that power accessible to everyone.</p>
+          </div>
+          <div class="footer-section links">
+            <h2>Quick Links</h2>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Courses</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li><span>Address: </span>123 Street Name, City, State, Country</li>
+              <li><span>Email: </span><a href="mailto:info@elearning.com">info@elearning.com</a></li>
+              <li><span>Phone: </span><a href="tel:+1234567890">+123 456 7890</a></li>
+            </ul>
+          </div>
+          <div class="footer-section social">
+            <h2>Follow Us</h2>  
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+        </div>
+      </footer>
+
+
+    
+    <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('menu-icon').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+    </script>
+    
+</body>
+</html>
+

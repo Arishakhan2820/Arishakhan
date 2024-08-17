@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrolled Courses</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgb(22, 2, 39);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background: rgb(22, 2, 39);
+            color: white;
+            padding: 10px 5px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            align-items: center;
+            transition: box-shadow 0.3s ease-in-out, background 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background: rgb(22, 2, 39);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: auto;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #f4f4f9;
+        }
+
+        .navbar-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-size: 18px;
+            padding: 10px 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            background-color: #231a35;
+            color: #f4f4f9;
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            margin-left: auto; /* Ensure it stays to the right */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px; /* Adjusted for better visibility */
+            background: white;
+            border-radius: 3px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgb(22, 2, 39);
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            .navbar.show .navbar-menu {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        .content {
+            margin-top: 70px; 
+            padding: 30px;
+            transition: padding 0.3s ease;
+            
+        }
+
+        section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-in-out;
+            border: 1px solid #ddd;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h1, section h2, section h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .course-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .course-card {
+            background: rgb(22, 2, 39);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            flex: 1;
+            max-width: calc(33% - 20px);
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+        }
+
+        .course-card p{
+            color: #d1cccc;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            
+        }
+
+        .course-card h3 {
+            margin-top: 0;
+            color: #d1cccc;
+        }
+
+        .progress {
+            font-size: 14px;
+            color: #dbdada;
+        }
+
+        .activity, .upcoming-deadlines {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .activity-item, .deadline-card {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .activity-item:last-child, .deadline-card:last-child {
+            border-bottom: none;
+        }
+
+        .deadline-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background: #f7f7f7;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .deadline-card:hover {
+            background: #e2e2e2;
+            border-color: #ccc;
+        }
+
+        .deadline-details {
+            flex: 1;
+        }
+
+        .deadline-date {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="Logo" height="80px" width="80px"></a>
+        </div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">User Dashboard</a>
+            <a href="pf.html">Profile Management</a>
+            <a href="enrolledc.html">Enrolled Courses</a>
+            <a href="settings.html">Settings</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content">
+        <section id="enrolled-courses">
+            <h1>Enrolled Courses</h1>
+            <p>Explore your enrolled courses below. Click on any course to view more details, track your progress, and stay updated with upcoming deadlines and materials.</p>
+            
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>Web Development</h3>
+                    <p><strong>Instructor:</strong> Jane Smith</p>
+                    <p><strong>Progress:</strong> 75%</p>
+                    <div class="progress">Last Accessed: 3 days ago</div>
+                </div>
+                <div class="course-card">
+                    <h3>Data Science</h3>
+                    <p><strong>Instructor:</strong> Emily Johnson</p>
+                    <p><strong>Progress:</strong> 60%</p>
+                    <div class="progress">Last Accessed: 1 week ago</div>
+                </div>
+                <div class="course-card">
+                    <h3>Cyber Security</h3>
+                    <p><strong>Instructor:</strong> David Wilson</p>
+                    <p><strong>Progress:</strong> 85%</p>
+                    <div class="progress">Last Accessed: 2 days ago</div>
+                </div>
+                <div class="course-card">
+                    <h3>UI/UX Design</h3>
+                    <p><strong>Instructor:</strong> Sarah Davis</p>
+                    <p><strong>Progress:</strong> 40%</p>
+                    <div class="progress">Last Accessed: 5 days ago</div>
+                </div>
+                <div class="course-card">
+                    <h3>Graphic Design</h3>
+                    <p><strong>Instructor:</strong> Michael Brown</p>
+                    <p><strong>Progress:</strong> 90%</p>
+                    <div class="progress">Last Accessed: 2 days ago</div>
+                </div>
+                <div class="course-card">
+                    <h3>Machine Learning</h3>
+                    <p><strong>Instructor:</strong> Michael Brown</p>
+                    <p><strong>Progress:</strong> 90%</p>
+                    <div class="progress">Last Accessed: 2 days ago</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activity" class="activity">
+            <h2>Recent Activity</h2>
+            <div class="activity-item">
+                <h3>Completed Assignment</h3>
+                <p><strong>Course:</strong> Web Development</p>
+                <p><strong>Description:</strong> Completed the assignment on responsive design.</p>
+                <p><strong>Date:</strong> August 29, 2024</p>
+            </div>
+            <div class="activity-item">
+                <h3>Quiz Attempt</h3>
+                <p><strong>Course:</strong> Data Science</p>
+                <p><strong>Description:</strong> Attempted the quiz on data cleaning techniques.</p>
+                <p><strong>Date:</strong> August 27, 2024</p>
+            </div>
+        </section>
+
+        <section id="upcoming-deadlines" class="upcoming-deadlines">
+            <h2>Upcoming Deadlines</h2>
+            <div class="deadline-card">
+                <div class="deadline-details">
+                    <h3>Web Development Project</h3>
+                    <p><strong>Description:</strong> Submit the final project for the Web Development course.</p>
+                </div>
+                <div class="deadline-date">September 10, 2024</div>
+            </div>
+            <div class="deadline-card">
+                <div class="deadline-details">
+                    <h3>Data Science Quiz</h3>
+                    <p><strong>Description:</strong> Complete the quiz on machine learning algorithms.</p>
+                </div>
+                <div class="deadline-date">September 15, 2024</div>
+            </div>
+            <div class="deadline-card">
+                <div class="deadline-details">
+                    <h3>Machine Learning Assignment</h3>
+                    <p><strong>Description:</strong> Submit the assignment on supervised learning.</p>
+                </div>
+                <div class="deadline-date">September 20, 2024</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('show');
+            const hamburger = document.querySelector('.hamburger');
+            hamburger.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

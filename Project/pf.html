@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgb(35, 4, 61);       
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background:  rgb(35, 4, 61);
+            color: white;
+            padding: 10px 5px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            align-items: center;
+            transition: box-shadow 0.3s ease-in-out, background 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background:  rgb(35, 4, 61);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: auto;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #f4f4f9;
+        }
+
+        .navbar-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            background-color: #231a35;
+            color: #f4f4f9;
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            margin-left: auto; /* Ensure it stays to the right */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px; /* Adjusted for better visibility */
+            background: white;
+            border-radius: 3px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background:  rgb(35, 4, 61);
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            .navbar-menu.show {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+            }   
+        }
+
+        .content {
+            margin-top: 70px; /* Adjust margin to avoid content overlap with fixed navbar */
+            padding: 30px;
+            transition: padding 0.3s ease;
+        }
+
+        section {
+            background: rgb(35, 4, 61);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-in-out;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        section:hover {
+            background-color:  rgb(35, 4, 61);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h1, section h2, section h3 {
+            color: #cfcdcd;
+            text-align: center;
+        }
+
+        .profile-info h3{
+            color:  rgb(35, 4, 61);; 
+            
+        }
+
+        .profile-info form {
+            background: rgb(35, 4, 61);
+            border: 1px solid #d1c8c8;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            transition: box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .profile-info form:hover {
+            background-color: rgb(35, 4, 61);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .profile-info form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .profile-info form input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .profile-info form input[type="password"]:focus {
+            border-color: #161327;
+            outline: none;
+        }
+
+        .profile-info form button {
+            background: #534892;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .profile-info form button:hover {
+            background: #231a35;
+            transform: scale(1.05);
+        }
+
+        .profile-info form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture img {
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            transition: border-color 0.3s;
+        }
+
+        .profile-picture img:hover {
+            border-color: #717172;
+        }
+
+        .profile-info {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #cecccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .activity {
+            text-align: center;
+        }
+
+        .activity p {
+            font-size: 18px;
+            color: #f8f5f5;
+        }
+
+        .form-group label{
+            color: #cecccc;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"> <img src="images/logo.png" alt="" height="80px" width="80px" > 
+        <a href="index.html"></a> </div></a> 
+        <div class="navbar-menu">
+            <a href="dashboard.html">User Dashboard</a>
+            <a href="pf.html">Profile Management</a>
+            <a href="enrolledc.html">Enrolled Courses</a>
+            <a href="settings.html">Settings</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    <div class="content">
+        <section id="profile">
+            <h2>Profile Management</h2>
+            <div class="profile-picture">
+                <img src="images/pfp.jfif" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h3>Personal Information</h3>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Phone:</strong> +1234567890</p>
+                
+                <h3>Change Password</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="current-password">Current Password  : </label>
+                        <input type="password" id="current-password" name="current-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                    </div>
+                    <button type="submit">Update Password</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="activity">
+            <h2>Recent Activity</h2>
+            <div class="activity">
+                <p>Course "Web Development" - Completed 80%</p>
+                <p>Course "JavaScript Basics" - Completed 50%</p>
+                <p>Last login: 2 days ago</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

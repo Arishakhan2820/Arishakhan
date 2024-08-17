@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color:rgb(22, 2, 39);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background: rgb(22, 2, 39);
+            color: white;
+            padding: 10px 5px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            align-items: center;
+            transition: box-shadow 0.3s ease-in-out, background 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background: rgb(22, 2, 39);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: auto;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #f4f4f9;
+        }
+
+        .navbar-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            background-color: #231a35;
+            color: #f4f4f9;
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            margin-left: auto; /* Ensure it stays to the right */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px; /* Adjusted for better visibility */
+            background: white;
+            border-radius: 3px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+       
+
+        .content {
+            padding: 20px;
+            margin-top: 80px; 
+            flex: 1;
+            transition: padding 0.3s ease-in-out;
+        }
+
+        section {
+            background:#fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        section:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+        }
+
+        section h1, section h2 {
+            color: #333;
+            padding-bottom: 10px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        section:hover h1, section:hover h2 {
+            color: rgb(35, 4, 61);
+        }
+
+        .course-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .course-card {
+            background: rgb(22, 2, 39);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            flex: 1;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            max-width: 300px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+
+        .course-card:hover {
+            background-color: #f0f0f5;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stats-grid h3{
+            color: beige;
+        }
+
+        .stats-grid p{
+            color: #ddd;
+        }
+
+        .stats-card {
+            background:rgb(22, 2, 39);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            flex: 1;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            max-width: 300px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .course-card h3{
+            color: beige;
+        }
+
+        .course-card p{
+            color: #ddd;
+        }
+
+        .stats-card:hover {
+            background-color: #f0f0f5;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .notifications .notification-item {
+            background: rgb(22, 2, 39);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .notifications .notification-item p{
+            color: #ddd;
+        }
+
+        .notifications .notification-item:hover {
+            background-color: #f0f0f5;
+            transform: translateY(-3px);
+        }
+
+        .messages .message-item {
+            background: rgb(22, 2, 39);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .messages .message-item p{
+            color: #ddd;
+        }
+
+        .messages .message-item:hover {
+            background-color: #f0f0f5;
+            transform: translateY(-3px);
+        }
+
+        .profile-info form {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            max-width: 400px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .profile-info form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .profile-info form input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .profile-info form button {
+            background: rgb(22, 2, 39);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .profile-info form button:hover {
+            background: rgb(35, 4, 61);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgb(22, 2, 39);
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgb(22, 2, 39);
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            .navbar-menu.show {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+           <a href="index.html"> <img src="images/logo.png" alt="Logo" height="80px" width="80px"></a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">User Dashboard</a>
+            <a href="pf.html">Profile Management</a>
+            <a href="enrolledc.html">Enrolled Courses</a>
+            <a href="settings.html">Settings</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <section id="overview">
+            <h1>User Dashboard</h1>
+            <p>Welcome to your user dashboard. Here you can manage your profile and view your enrolled courses. Use the navigation links to access different sections of your dashboard.</p>
+            <p>Stay on top of your educational journey with the latest updates and notifications.</p>
+        </section>
+
+        <section id="courses">
+            <h2>Enrolled Courses</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>Web Development</h3>
+                    <p>Progress: 75%</p>
+                    <p>Last Accessed: 3 days ago</p>
+                </div>
+                <div class="course-card">
+                    <h3>Data Science</h3>
+                    <p>Progress: 45%</p>
+                    <p>Last Accessed: 1 week ago</p>
+                </div>
+                <div class="course-card">
+                    <h3>Machine Learning</h3>
+                    <p>Progress: 20%</p>
+                    <p>Last Accessed: 2 weeks ago</p>
+                </div>
+                <div class="course-card">
+                    <h3>Graphic Design</h3>
+                    <p>Progress: 60%</p>
+                    <p>Last Accessed: 5 days ago</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="statistics">
+            <h2 >Your Statistics</h2>
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <h3>Total Courses</h3>
+                    <p>12</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Courses Completed</h3>
+                    <p>8</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Certificates Earned</h3>
+                    <p>5</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Hours Studied</h3>
+                    <p>120</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="notifications">
+            <h2>Recent Notifications</h2>
+            <div class="notifications">
+                <div class="notification-item">
+                    <p>Your assignment on Web Development has been graded.</p>
+                </div>
+                <div class="notification-item">
+                    <p>New course available: Introduction to AI.</p>
+                </div>
+                <div class="notification-item">
+                    <p>Reminder: Complete your profile for better course recommendations.</p>
+                </div>
+                <div class="notification-item">
+                    <p>Congratulations! You have earned a badge for completing 5 courses.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="messages">
+            <h2>Messages</h2>
+            <div class="messages">
+                <div class="message-item">
+                    <p>Instructor: Please review the feedback on your last assignment.</p>
+                </div>
+                <div class="message-item">
+                    <p>Student Support: Your issue with the course enrollment has been resolved.</p>
+                </div>
+                <div class="message-item">
+                    <p>Admin: Your profile update has been successful.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- <footer>
+        <p>&copy; 2024 Your Educational Platform</p>
+    </footer> -->
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

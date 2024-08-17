@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgb(22, 2, 39); 
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            margin-left: 20px;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            background-color: rgb(35, 4, 61); 
+            color: #fff;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding-right: 28px;
+        }
+
+        .hamburger:hover {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: rgb(22, 2, 39);
+                position: absolute;
+                top: 50px;
+                left: 0;
+                border-top: 1px solid #ddd;
+            }
+
+            .navbar-menu.show {
+                display: flex;
+            }
+
+            .navbar-menu a {
+                margin: 10px 0;
+                padding: 15px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        .content {
+            margin-top: 60px; 
+            padding: 20px;
+        }
+
+        section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        section h1, section h2 {
+            color: #333;
+        }
+
+        .profile-info, .course-list {
+            margin-top: 20px;
+        }
+
+        .profile-info p, .course-list ul {
+            margin: 10px 0;
+        }
+
+        .course-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course-list ul li {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .course-list ul li:hover {
+            background: #e0e0e0;
+        }
+
+        .profile-info form {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        .profile-info form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .profile-info form input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .profile-info form button {
+            background: rgb(22, 2, 39);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .profile-info form button:hover {
+            background: rgb(35, 4, 61);
+        }
+
+        .profile-info form .form-group {
+            margin-bottom: 20px;
+        }
+    </style>

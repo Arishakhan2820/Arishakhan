@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background: #161327;
+            color: white;
+            padding: 10px 5px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            align-items: center;
+            transition: box-shadow 0.3s ease-in-out, background 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background: #13101f;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: auto;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #f4f4f9;
+        }
+
+        .navbar-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-size: 18px;
+            padding: 10px 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            background-color: #231a35;
+            color: #f4f4f9;
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            margin-left: auto; /* Ensure it stays to the right */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px; /* Adjusted for better visibility */
+            background: white;
+            border-radius: 3px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #161327;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            .navbar-menu.show {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        .content {
+            margin-top: 60px; /* Adjust margin to avoid content overlap with fixed navbar */
+            padding: 20px;
+            transition: padding 0.3s ease;
+        }
+
+        section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h1, section h2, section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .settings-form {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .settings-form:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .settings-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .settings-form input[type="text"],
+        .settings-form input[type="email"],
+        .settings-form input[type="password"],
+        .settings-form select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .settings-form input[type="text"]:focus,
+        .settings-form input[type="email"]:focus,
+        .settings-form input[type="password"]:focus,
+        .settings-form select:focus {
+            border-color: #161327;
+            outline: none;
+        }
+
+        .settings-form button {
+            background: #161327;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .settings-form button:hover {
+            background: #231a35;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="Logo" height="80px" width="80px"></a>
+        </div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">User Dashboard</a>
+            <a href="pf.html">Profile Management</a>
+            <a href="enrolledc.html">Enrolled Courses</a>
+            <a href="settings.html">Settings</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content">
+        <section id="settings">
+            <h2>Account Settings</h2>
+            <div class="settings-info">
+                <h3>Personal Information</h3>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" value="JohnDoe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="john.doe@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" name="phone" value="+1234567890">
+                    </div>
+                    <button type="submit">Update Information</button>
+                </form>
+                
+                <h3>Change Password</h3>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="current-password">Current Password:</label>
+                        <input type="password" id="current-password" name="current-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                    </div>
+                    <button type="submit">Update Password</button>
+                </form>
+            </div>
+
+            <section class="course-settings">
+                <h3>Course Preferences</h3>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="default-course-view">Default Course View:</label>
+                        <select id="default-course-view" name="default-course-view">
+                            <option value="grid">Grid View</option>
+                            <option value="list">List View</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notification-preferences">Notification Preferences:</label>
+                        <select id="notification-preferences" name="notification-preferences">
+                            <option value="all">All Notifications</option>
+                            <option value="important">Only Important</option>
+                            <option value="none">No Notifications</option>
+                        </select>
+                    </div>
+                    <button type="submit">Save Course Settings</button>
+                </form>
+            </section>
+        </section>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
